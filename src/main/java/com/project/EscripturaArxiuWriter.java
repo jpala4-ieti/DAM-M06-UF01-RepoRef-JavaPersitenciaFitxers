@@ -1,42 +1,45 @@
 package com.project;
 
-import java.io.File;
+import com.project.utilitats.UtilitatsFitxers;
 import java.io.FileWriter;
 import java.io.IOException;
 
-// Aquest exemple escriu un text 
-// en un arxiu amb FileWriter
-// Després el torna a obrir per afegir-hi més text
-// amb el paràmetre 'append'
-
 public class EscripturaArxiuWriter {
-    public static void main(String args[]) {
-        String basePath = System.getProperty("user.dir") + "/data/";
-        String filePath = basePath + "ArxiuEscriu.txt";
 
-        // Crear la carpeta 'data' si no existeix
-        File dir = new File(basePath);
-        if (!dir.exists()){
-            if(!dir.mkdirs()) {
-                System.out.println("Error en la creació de la carpeta 'data'");
-            }
+    // Mètode per escriure en un fitxer
+    public static void escriureFitxer(String camiFitxer, String contingut) throws IOException {
+        try (FileWriter fw = new FileWriter(camiFitxer)) {
+            fw.write(contingut);
         }
+    }
 
-        System.out.println("");
+    // Mètode per afegir text a un fitxer
+    public static void afegirAlFitxer(String camiFitxer, String contingut) throws IOException {
+        try (FileWriter fw = new FileWriter(camiFitxer, true)) {
+            fw.write(contingut);
+        }
+    }
+
+    public static void main(String[] args) {
+        String camiBase = System.getProperty("user.dir") + "/data/";
+        String camiFitxer = camiBase + "ArxiuEscriu.txt";
 
         try {
-            FileWriter fw0 = new FileWriter(filePath);
-            fw0.write("Sometimes life hits you in the head with a brick\n"); 
-            fw0.write("Don’t lose faith. I’m convinced that the only\n");
-            fw0.close();
+            // Utilitzar la classe utilitat per crear la carpeta si no existeix
+            UtilitatsFitxers.crearCarpetaSiNoExisteix(camiFitxer);
 
-            FileWriter fw1 = new FileWriter(filePath, true);
-            fw1.write("thing that kept me going was that I loved what I did.\n");
-            fw1.write("You’ve got to find what you love.\n");
-            fw1.close();
+            // Escriure contingut inicial al fitxer
+            escriureFitxer(camiFitxer, "Sometimes life hits you in the head with a brick\n"
+                    + "Don’t lose faith. I’m convinced that the only\n");
+
+            // Afegir més contingut al fitxer
+            afegirAlFitxer(camiFitxer, "thing that kept me going was that I loved what I did.\n"
+                    + "You’ve got to find what you love.\n");
 
             System.out.println("Llest");
 
-        } catch (IOException e) { e.printStackTrace(); }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

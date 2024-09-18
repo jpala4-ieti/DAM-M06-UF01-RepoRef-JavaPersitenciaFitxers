@@ -7,6 +7,8 @@ import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import com.project.estructuresdades.Objecte;
+
 // En aquest exemples es
 // llegeix una llista d'objectes
 // serializables des de un arxiu binari

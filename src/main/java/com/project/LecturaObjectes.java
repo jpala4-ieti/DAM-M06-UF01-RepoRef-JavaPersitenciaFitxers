@@ -5,6 +5,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 
+import com.project.estructuresdades.Objecte;
+
 public class LecturaObjectes {
     public static void main(String args[]) {
         String basePath = System.getProperty("user.dir") + "/data/";

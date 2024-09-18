@@ -1,45 +1,37 @@
 package com.project;
 
-import java.io.ByteArrayInputStream;
-import java.io.DataInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.UnsupportedEncodingException;
+import com.project.estructuresdades.Objecte;
 
-// En aquest exemple es llegeixen
-// dades primitives JAVA d'un arxiu binari
-// S'hauràn de llegir en el mateix
-// ordre que s'han escrit
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
-// Com que els objectes NO són
-// dades de tipus primitiu en JAVA
-// llegim els seus bytes
-// amb la funció "readSerializableObject"
-
-// Per transformar de bytes a Objecte,
-// l'objecte ha de ser serializable
-
+// Aquesta classe llegeix dades primitives i objectes serialitzables d'un fitxer binari
 public class LecturaDadesPrimitives {
-    public static void main(String args[]) {
+
+    public static void main(String[] args) {
         String basePath = System.getProperty("user.dir") + "/data/";
         String filePath = basePath + "ArxiuEscriuPrimitives.dat";
 
         // Crear la carpeta 'data' si no existeix
-        File dir = new File(basePath);
-        if (!dir.exists()){
-            if(!dir.mkdirs()) {
-                System.out.println("Error en la creació de la carpeta 'data'");
-            }
-        }
-        
-        System.out.println("");
-
         try {
-            FileInputStream fis = new FileInputStream(filePath);
-            DataInputStream dis = new DataInputStream(fis);
+            Files.createDirectories(Path.of(basePath));
+        } catch (IOException e) {
+            System.out.println("Error en la creació de la carpeta: " + basePath);
+            e.printStackTrace();
+            return;
+        }
 
+        // Llegir el fitxer i mostrar el contingut
+        llegirIFerMostra(filePath);
+    }
+
+    // Mètode que llegeix les dades d'un fitxer binari i les mostra
+    public static void llegirIFerMostra(String filePath) {
+        try (FileInputStream fis = new FileInputStream(filePath);
+             DataInputStream dis = new DataInputStream(fis)) {
+
+            // Llegir dades primitives
             String cad = dis.readUTF();
             int num = dis.readInt();
             boolean bool = dis.readBoolean();
@@ -47,6 +39,7 @@ public class LecturaDadesPrimitives {
             double dou = dis.readDouble();
             Objecte obj = (Objecte) readSerializableObject(dis);
 
+            // Mostrar les dades
             System.out.println("String > " + cad);
             System.out.println("Enter > " + num);
             System.out.println("Booleà > " + bool);
@@ -54,29 +47,26 @@ public class LecturaDadesPrimitives {
             System.out.println("Double > " + dou);
             System.out.println("Objecte > " + obj);
 
-            fis.close();
-            dis.close();
-            
-        } catch (IOException e) { e.printStackTrace(); }
+        } catch (IOException e) {
+            System.out.println("Error en la lectura del fitxer: " + filePath);
+            e.printStackTrace();
+        }
     }
 
-    static Object readSerializableObject (DataInputStream dis) {
+    // Mètode que llegeix un objecte serialitzat d'un DataInputStream
+    public static Object readSerializableObject(DataInputStream dis) {
         try {
-            // Llegeix la longitud de l'array
-            int lgth = dis.readInt();
-            byte[] data = new byte [lgth];
+            int length = dis.readInt(); // Llegir la longitud de l'objecte en bytes
+            byte[] data = new byte[length];
+            dis.readFully(data); // Llegir l'objecte en bytes
 
-            // LLegeix l'array que conté l'objecte
-            dis.readFully(data, 0, lgth);
-
-            // Transforma l'array de bytes en objecte
-            ByteArrayInputStream in = new ByteArrayInputStream(data);
-            ObjectInputStream is = new ObjectInputStream(in);
-            return is.readObject();
-
-        } catch (ClassNotFoundException e) { e.printStackTrace();
-        } catch (UnsupportedEncodingException e) { e.printStackTrace();
-        } catch (IOException e) { e.printStackTrace(); }
-        return new java.lang.AbstractMethodError();
+            try (ByteArrayInputStream bais = new ByteArrayInputStream(data);
+                 ObjectInputStream ois = new ObjectInputStream(bais)) {
+                return ois.readObject(); // Deserialitzar l'objecte
+            }
+        } catch (ClassNotFoundException | IOException e) {
+            e.printStackTrace();
+        }
+        return null; // En cas d'error retorna null
     }
 }

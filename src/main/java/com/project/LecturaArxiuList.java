@@ -1,36 +1,51 @@
 package com.project;
 
-import java.io.File;
+import com.project.utilitats.UtilitatsFitxers;
+
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
-// Aquest exemple llegeix un arxiu de text en una List<String>
+// Aquesta classe llegeix un arxiu de text i en mostra el contingut línia per línia.
 
 public class LecturaArxiuList {
-    public static void main(String args[]) {
-        String basePath = System.getProperty("user.dir") + "/data/";
-        String fileName = "Arxiu.txt";
-        String filePath = basePath + fileName;
+
+    // Mètode principal
+    public static void main(String[] args) {
+        String camiBase = System.getProperty("user.dir") + "/data/";
+        String nomFitxer = "Arxiu.txt";
+        String camiFitxer = camiBase + nomFitxer;
 
         // Crear la carpeta 'data' si no existeix
-        File dir = new File(basePath);
-        if (!dir.exists()){
-            if(!dir.mkdirs()) {
-                System.out.println("Error en la creació de la carpeta 'data'");
-            }
-        }
-        
-        System.out.println("");
-
         try {
-            List<String> linies = Files.readAllLines(Paths.get(filePath), StandardCharsets.UTF_8);
-            for (int cnt = 0; cnt < linies.size(); cnt = cnt + 1) {
-                System.out.println(linies.get(cnt));
-            }
-        } catch (IOException e) { e.printStackTrace(); }
+            UtilitatsFitxers.crearCarpetaSiNoExisteix(camiBase);
+        } catch (IOException e) {
+            System.out.println("Error en la creació de la carpeta: " + camiBase);
+            e.printStackTrace();
+            return;
+        }
 
+        // Llegir i mostrar les línies del fitxer
+        llegirIMostrarFitxer(camiFitxer);
+    }
+
+    // Mètode per llegir i mostrar les línies d'un fitxer
+    public static void llegirIMostrarFitxer(String camiFitxer) {
+        try {
+            List<String> linies = Files.readAllLines(Paths.get(camiFitxer), StandardCharsets.UTF_8);
+            mostrarLinies(linies);
+        } catch (IOException e) {
+            System.out.println("Error en la lectura del fitxer: " + camiFitxer);
+            e.printStackTrace();
+        }
+    }
+
+    // Mètode per mostrar les línies llegides del fitxer
+    public static void mostrarLinies(List<String> linies) {
+        for (String linia : linies) {
+            System.out.println(linia);
+        }
     }
 }

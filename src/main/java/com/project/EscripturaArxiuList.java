@@ -1,6 +1,6 @@
 package com.project;
 
-import java.io.File;
+import com.project.utilitats.UtilitatsFitxers;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
@@ -11,32 +11,22 @@ import java.util.ArrayList;
 
 public class EscripturaArxiuList {
 
-    public static void escriureArxiu(List<String> linies, String filePath) throws IOException {
-        // Crear la carpeta si no existeix
-        File dir = new File(filePath).getParentFile();
-        if (!dir.exists() && !dir.mkdirs()) {
-            throw new IOException("Error en la creació de la carpeta " + dir.getPath());
-        }
-
+    // Mètode per escriure en un arxiu de text
+    public static void escriureArxiu(List<String> linies, String camiFitxer) throws IOException {
         // Escriure en l'arxiu
-        Path out = Paths.get(filePath);
-        Files.write(out, linies, Charset.defaultCharset());
+        Path sortida = Paths.get(camiFitxer);
+        Files.write(sortida, linies, Charset.defaultCharset());
     }
 
-    public static void main(String args[]) {
-        String basePath = System.getProperty("user.dir") + "/data/";
-        String filePath = basePath + "ArxiuEscriu.txt";
-
-        // Crear la carpeta 'data' si no existeix
-        File dir = new File(basePath);
-        if (!dir.exists()) {
-            if (!dir.mkdirs()) {
-                System.out.println("Error en la creació de la carpeta 'data'");
-                return;
-            }
-        }
+    public static void main(String[] args) {
+        String camiBase = System.getProperty("user.dir") + "/data/";
+        String camiFitxer = camiBase + "ArxiuEscriu.txt";
 
         try {
+            // Utilitzar la classe utilitat per crear la carpeta si no existeix
+            UtilitatsFitxers.crearCarpetaSiNoExisteix(camiBase);
+
+            // Crear llista de línies per escriure
             List<String> linies = new ArrayList<>();
             linies.add("Del xoc i la confusió apareixen les pors,");
             linies.add("perills i destruccions inapreciables per la");
@@ -46,7 +36,7 @@ public class EscripturaArxiuList {
             linies.add("fam i pandèmies genera xoc i confusió.");
 
             // Utilitzar el mètode escriureArxiu per escriure el contingut al fitxer
-            escriureArxiu(linies, filePath);
+            escriureArxiu(linies, camiFitxer);
 
             System.out.println("Llest");
 
