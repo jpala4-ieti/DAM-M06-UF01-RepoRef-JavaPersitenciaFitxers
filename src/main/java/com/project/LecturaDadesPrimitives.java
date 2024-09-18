@@ -1,17 +1,15 @@
 package com.project;
 
-import com.project.estructuresdades.Objecte;
-
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-// Aquesta classe llegeix dades primitives i objectes serialitzables d'un fitxer binari
+// Aquesta classe llegeix dades primitives d'un fitxer binari i les mostra
 public class LecturaDadesPrimitives {
 
     public static void main(String[] args) {
         String basePath = System.getProperty("user.dir") + "/data/";
-        String filePath = basePath + "ArxiuEscriuPrimitives.dat";
+        String filePath = basePath + "ArxiuDadesPrimitives.dat";
 
         // Crear la carpeta 'data' si no existeix
         try {
@@ -37,7 +35,6 @@ public class LecturaDadesPrimitives {
             boolean bool = dis.readBoolean();
             char chr = dis.readChar();
             double dou = dis.readDouble();
-            Objecte obj = (Objecte) readSerializableObject(dis);
 
             // Mostrar les dades
             System.out.println("String > " + cad);
@@ -45,28 +42,10 @@ public class LecturaDadesPrimitives {
             System.out.println("Booleà > " + bool);
             System.out.println("Caràcter > " + chr);
             System.out.println("Double > " + dou);
-            System.out.println("Objecte > " + obj);
 
         } catch (IOException e) {
             System.out.println("Error en la lectura del fitxer: " + filePath);
             e.printStackTrace();
         }
-    }
-
-    // Mètode que llegeix un objecte serialitzat d'un DataInputStream
-    public static Object readSerializableObject(DataInputStream dis) {
-        try {
-            int length = dis.readInt(); // Llegir la longitud de l'objecte en bytes
-            byte[] data = new byte[length];
-            dis.readFully(data); // Llegir l'objecte en bytes
-
-            try (ByteArrayInputStream bais = new ByteArrayInputStream(data);
-                 ObjectInputStream ois = new ObjectInputStream(bais)) {
-                return ois.readObject(); // Deserialitzar l'objecte
-            }
-        } catch (ClassNotFoundException | IOException e) {
-            e.printStackTrace();
-        }
-        return null; // En cas d'error retorna null
     }
 }

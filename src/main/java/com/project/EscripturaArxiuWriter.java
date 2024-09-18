@@ -22,11 +22,11 @@ public class EscripturaArxiuWriter {
 
     public static void main(String[] args) {
         String camiBase = System.getProperty("user.dir") + "/data/";
-        String camiFitxer = camiBase + "ArxiuEscriu.txt";
+        String camiFitxer = camiBase + "ArxiuWriter.txt";
 
         try {
             // Utilitzar la classe utilitat per crear la carpeta si no existeix
-            UtilitatsFitxers.crearCarpetaSiNoExisteix(camiFitxer);
+            UtilitatsFitxers.crearCarpetaSiNoExisteix(camiBase);
 
             // Escriure contingut inicial al fitxer
             escriureFitxer(camiFitxer, "Sometimes life hits you in the head with a brick\n"

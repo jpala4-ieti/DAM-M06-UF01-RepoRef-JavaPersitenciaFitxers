@@ -12,7 +12,7 @@ public class LecturaArxiuScanner {
     // Mètode principal
     public static void main(String[] args) {
         String camiBase = System.getProperty("user.dir") + "/data/";
-        String nomFitxer = "Arxiu.txt";
+        String nomFitxer = "ArxiuWriter.txt";
         String camiFitxer = camiBase + nomFitxer;
 
         // Crear la carpeta 'data' si no existeix

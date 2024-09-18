@@ -20,7 +20,7 @@ public class EscripturaArxiuList {
 
     public static void main(String[] args) {
         String camiBase = System.getProperty("user.dir") + "/data/";
-        String camiFitxer = camiBase + "ArxiuEscriu.txt";
+        String camiFitxer = camiBase + "ArxiuList.txt";
 
         try {
             // Utilitzar la classe utilitat per crear la carpeta si no existeix

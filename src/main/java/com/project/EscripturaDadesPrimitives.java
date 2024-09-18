@@ -25,11 +25,11 @@ public class EscripturaDadesPrimitives {
 
     public static void main(String[] args) {
         String camiBase = System.getProperty("user.dir") + "/data/";
-        String camiFitxer = camiBase + "ArxiuEscriuPrimitives.dat";
+        String camiFitxer = camiBase + "ArxiuDadesPrimitives.dat";
 
         try {
             // Utilitzar la classe utilitat per crear la carpeta si no existeix
-            UtilitatsFitxers.crearCarpetaSiNoExisteix(camiFitxer);
+            UtilitatsFitxers.crearCarpetaSiNoExisteix(camiBase);
 
             // Escriure només dades primitives
             escriureDadesPrimitives(camiFitxer, "Hola", 44, true, 'A', 2.46);

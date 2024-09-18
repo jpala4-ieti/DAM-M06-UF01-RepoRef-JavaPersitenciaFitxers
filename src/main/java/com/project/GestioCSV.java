@@ -13,7 +13,7 @@ import com.project.utilitats.UtilsCSV;
 public class GestioCSV {
     public static void main(String[] args) {
         String camiBase = System.getProperty("user.dir") + "/data/";
-        String nomFitxer = "Arxiu.csv";
+        String nomFitxer = "GestioCSV.csv";
         String camiFitxer = camiBase + nomFitxer;
 
         // Crear la carpeta 'data' si no existeix

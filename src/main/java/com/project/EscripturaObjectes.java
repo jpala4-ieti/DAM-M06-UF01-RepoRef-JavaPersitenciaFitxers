@@ -20,11 +20,11 @@ public class EscripturaObjectes {
 
     public static void main(String[] args) {
         String camiBase = System.getProperty("user.dir") + "/data/";
-        String camiFitxer = camiBase + "ArxiuEscriuObjectes.dat";
+        String camiFitxer = camiBase + "ArxiuObjectes.dat";
 
         try {
             // Utilitzar la classe utilitat per crear la carpeta si no existeix
-            UtilitatsFitxers.crearCarpetaSiNoExisteix(camiFitxer);
+            UtilitatsFitxers.crearCarpetaSiNoExisteix(camiBase);
 
             // Crear dos objectes
             Objecte obj0 = new Objecte("Escriptori", "Estudiar");

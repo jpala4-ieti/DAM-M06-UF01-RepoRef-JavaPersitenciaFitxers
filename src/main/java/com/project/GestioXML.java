@@ -12,7 +12,7 @@ import com.project.utilitats.UtilsXML;
 public class GestioXML {
     public static void main(String[] args) {
         String camiBase = System.getProperty("user.dir") + "/data/";
-        String nomFitxer = "Arxiu.xml";
+        String nomFitxer = "GestioXML.xml";
         String camiFitxer = camiBase + nomFitxer;
 
         // Crear la carpeta 'data' si no existeix

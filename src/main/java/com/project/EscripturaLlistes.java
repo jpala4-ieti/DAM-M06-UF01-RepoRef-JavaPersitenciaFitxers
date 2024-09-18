@@ -21,11 +21,11 @@ public class EscripturaLlistes {
 
     public static void main(String[] args) {
         String camiBase = System.getProperty("user.dir") + "/data/";
-        String camiFitxer = camiBase + "ArxiuEscriuLlistes.dat";
+        String camiFitxer = camiBase + "ArxiuLlistes.dat";
 
         try {
             // Utilitzar la classe utilitat per crear la carpeta si no existeix
-            UtilitatsFitxers.crearCarpetaSiNoExisteix(camiFitxer);
+            UtilitatsFitxers.crearCarpetaSiNoExisteix(camiBase);
 
             // Crear i omplir la llista d'objectes
             List<Objecte> llista = new ArrayList<>();

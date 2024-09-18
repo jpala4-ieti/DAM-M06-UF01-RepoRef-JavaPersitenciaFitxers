@@ -39,7 +39,7 @@ public class GestioArxius {
 
     public static void main(String[] args) {
         String camiBase = System.getProperty("user.dir") + "/data/";
-        String camiFitxer = camiBase + "Arxiu.txt";
+        String camiFitxer = camiBase + "GestioArxius.txt";
 
         try {
             // Utilitzar la classe utilitat per crear la carpeta si no existeix
