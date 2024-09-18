@@ -3,7 +3,6 @@ package com.project;
 import com.project.utilitats.UtilitatsFitxers;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
-import java.io.File;
 import java.io.IOException;
 
 class GestioArxiusTest {
@@ -12,7 +11,6 @@ class GestioArxiusTest {
     void testGestioArxius() {
         // Preparació
         String camiBase = System.getProperty("java.io.tmpdir") + "/testData/";
-        String camiFitxer = camiBase + "Arxiu.txt";
         String camiFitxerTmp = camiBase + "ArxiuTmp.txt";
 
         try {

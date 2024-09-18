@@ -1,6 +1,5 @@
 package com.project;
 
-import com.project.utilitats.UtilitatsFitxers;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
